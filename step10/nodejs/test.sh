@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Run InfluxDB in a container
-docker container run -d -p 8083:8083 -p 8086:8086 --name influx influxdb
+docker container run -d -p 8083:8083 -p 8086:8086 --name influx influxdb:1.2.4
 
 # Wait for the database to be ready
 curl -sL -I localhost:8086/ping
@@ -14,7 +14,7 @@ done
 curl -i -XPOST http://localhost:8086/query --data-urlencode "q=CREATE DATABASE iot"
 
 # Run the tests specifying the InfluxDB host
-INFLUXDB_HOST=localhost npm test
+INFLUXDB_HOST=localhost ./node_modules/.bin/mocha test/functional.js #remplacer pour "npm test"
 
 # Remove the InfluxDB container
 docker container stop influx && docker container rm influx
