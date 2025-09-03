@@ -14,17 +14,17 @@ Note: we only consider SaaS platforms here but a lot of tools can be installed o
 
 The workflow we will consider is the following one
 
-* code pushed in a repository of our versionning tool
-* tests are automatically ran
-* image is created and pushed to a registry if tests succeed
+- code pushed in a repository of our versionning tool
+- tests are automatically ran
+- image is created and pushed to a registry if tests succeed
 
 Note: 2 tags of the same image will be created, the first one is the name of the branch where the code changes have been done, the second one is the value of the GitHub commit of thoses changes.
 
 Among the tools available we will use the following ones
 
-* GitHub to handle the source code (we already using it though)
-* [CircleCI](http://circleci.com) to run the tests, they offer a great free tier btw
-* [Docker Hub](https://hub.docker.com) to store the Docker images of the application
+- GitHub to handle the source code (we already using it though)
+- [CircleCI](http://circleci.com) to run the tests, they offer a great free tier btw
+- [Docker Hub](https://hub.docker.com) to store the Docker images of the application
 
 ![The workflow](./images/ci-workflow.png)
 
@@ -32,8 +32,8 @@ Among the tools available we will use the following ones
 
 The main testing platforms are configured in pretty much the same way, and this applies to CircleCI as well
 
-* a link needs to be done with a GitHub account
-* a configuration file needs to be created at the root of the GitHub repository that will be tested
+- a link needs to be done with a GitHub account
+- a configuration file needs to be created at the root of the GitHub repository that will be tested
 
 Let's review the process in details.
 
@@ -49,7 +49,7 @@ The GitHub account is then linked to the platform
 
 2. Select the project to be handled in CircleCI
 
-Going into the project section, we can add a new project selecting one of our GitHub repositories. 
+Going into the project section, we can add a new project selecting one of our GitHub repositories.
 
 ![Add a project](./images/02-circleci-add-project.png)
 
@@ -59,13 +59,13 @@ Within the project settings, we then set our Docker Hub credentials as environme
 
 3. Add a circle.yml configuration file
 
-When running the tests for a project, CircleCI expects to have a *circle.yml* file at the root of the project (GitHub repository). This file is where all the steps are defined.
+When running the tests for a project, CircleCI expects to have a _circle.yml_ file at the root of the project (GitHub repository). This file is where all the steps are defined.
 
 Let's have a look at the way tests are done in the [Node.js example implementation](./nodejs/)
 
 4. Build the project
 
-The project is now ready to be built. Clicking on the *build* button will retrieve the source from Github and perform the tests and the associated actions.
+The project is now ready to be built. Clicking on the _build_ button will retrieve the source from Github and perform the tests and the associated actions.
 
 ![Build](./images/04-circleci-build-project.png)
 
@@ -82,7 +82,8 @@ Check that the tests are automatically triggered in CircleCI
 ![CircleCI tests](./images/06-circle-success-build.png)
 
 Going into Docker Hub we can see the image has been created with both tags
-* master as this is the name of the branch on which the changes have been done
-* GitHub's COMMIT_ID so the version of the code can be easily matched against the image
+
+- master as this is the name of the branch on which the changes have been done
+- GitHub's COMMIT_ID so the version of the code can be easily matched against the image
 
 ![Image creation on Docker Hub](./images/07-docker-hub-image-created.png)
