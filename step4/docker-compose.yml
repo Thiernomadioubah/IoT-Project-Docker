@@ -1,0 +1,18 @@
+services:
+  db:
+    image: influxdb:1.2.4
+    command: -config /etc/influxdb/influxdb.conf
+    ports:
+      - 8083:8083
+      - 8086:8086
+    volumes:
+      - ./influxdb.conf:/etc/influxdb/influxdb.conf:ro
+      - influxdata:/var/lib/influxdb
+    networks: # pour que le container soit sur le meme reseau que les autres qui sont sur le reseau frontend en dehors du compose(le container de thierno9/iot-api)
+      - frontend
+volumes:
+  influxdata:
+networks:
+  frontend:
+    external: true
+    driver: bridge
